@@ -1,6 +1,6 @@
 mod tables;
 
-use bitstream_io::{BitReader, LittleEndian};
+use bitstream_io::{read::BitRead, BitReader, LittleEndian};
 use rustdct::DCTplanner;
 use std::io::{Cursor, Read};
 use tables::*;
