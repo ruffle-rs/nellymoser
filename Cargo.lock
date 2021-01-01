@@ -13,7 +13,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "03539c739e37dab2c322ce07b1990089ca1fc7ad14b813e1538bf11bef98fe06"
 
 [[package]]
-name = "nellymoser_rs"
+name = "nelly2pcm_rs"
 version = "0.1.0"
 dependencies = [
  "bitstream-io",
