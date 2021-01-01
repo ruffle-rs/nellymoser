@@ -1,5 +1,5 @@
 [package]
-name = "nellymoser_rs"
+name = "nelly2pcm_rs"
 version = "0.1.0"
 authors = ["relrelb <relrelbachar@gmail.com>"]
 edition = "2018"
