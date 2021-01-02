@@ -271,7 +271,7 @@ impl<R: Read> Iterator for Decoder<R> {
 
     fn next(&mut self) -> Option<Self::Item> {
         if self.cur_sample >= NELLY_SAMPLES {
-            self.next_frame();
+            self.next_frame()?;
         }
 
         let sample = self.cur_frame[self.cur_sample];
