@@ -49,23 +49,33 @@ dependencies = [
 ]
 
 [[package]]
-name = "rustdct"
-version = "0.5.0"
+name = "primal-check"
+version = "0.3.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "caba40ba777383c3016353bc0f6c7353cbabbea5de4e293956a9522143ffa5d7"
+checksum = "01419cee72c1a1ca944554e23d83e483e1bccf378753344e881de28b5487511d"
+dependencies = [
+ "num-integer",
+]
+
+[[package]]
+name = "rustdct"
+version = "0.6.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "fadcb505b98aa64da1dadb1498b912e3642aae4606623cb3ae952cd8da33f80d"
 dependencies = [
  "rustfft",
 ]
 
 [[package]]
 name = "rustfft"
-version = "4.1.0"
+version = "5.0.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "f107ffb2ec15915d932b7b1537fe4d6efb36955ee2b06f8f759c80a0725f80b1"
+checksum = "a2af893d9cfb30d3d2f2ac4bd2a071232143558e06e791dc768179f0089f68f8"
 dependencies = [
  "num-complex",
  "num-integer",
  "num-traits",
+ "primal-check",
  "strength_reduce",
  "transpose",
 ]

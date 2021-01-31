@@ -3,7 +3,8 @@ name = "nelly2pcm_rs"
 version = "0.1.0"
 authors = ["relrelb <relrelbachar@gmail.com>"]
 edition = "2018"
+license = "MIT OR Apache-2.0"
 
 [dependencies]
 bitstream-io = "1.0.0"
-rustdct = "0.5.0"
+rustdct = "0.6.0"
