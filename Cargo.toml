@@ -4,7 +4,7 @@ version = "0.1.0"
 authors = ["relrelb <relrelbachar@gmail.com>"]
 edition = "2018"
 description = "Nellymoser decoding library written in Rust"
-license = "MIT OR Apache-2.0"
+license = "MIT"
 
 [dependencies]
 bitstream-io = "1.0.0"
