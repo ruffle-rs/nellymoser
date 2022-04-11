@@ -11,8 +11,12 @@
 mod tables;
 
 use bitstream_io::{read::BitRead, BitReader, LittleEndian};
+use once_cell::sync::Lazy;
 use rustdct::DctPlanner;
-use std::io::{Cursor, Read};
+use std::{
+    io::{Cursor, Read},
+    sync::Mutex,
+};
 use tables::*;
 
 const NELLY_BLOCK_LEN: usize = 64;
@@ -25,16 +29,15 @@ const NELLY_BASE_OFF: i32 = 4228;
 const NELLY_BASE_SHIFT: i16 = 19;
 const NELLY_SAMPLES: usize = NELLY_BUF_LEN * 2;
 
+static DCT_PLANNER: Lazy<Mutex<DctPlanner<f32>>> = Lazy::new(|| Mutex::new(DctPlanner::new()));
+
 pub struct Decoder<R: Read> {
     reader: R,
     sample_rate: u32,
     state: [f32; NELLY_BUF_LEN],
-    planner: DctPlanner<f32>,
     cur_frame: [f32; NELLY_SAMPLES],
     cur_sample: usize,
 }
-
-unsafe impl<R: Send + Read> Send for Decoder<R> {}
 
 impl<R: Read> Decoder<R> {
     pub fn new(reader: R, sample_rate: u32) -> Self {
@@ -42,7 +45,6 @@ impl<R: Read> Decoder<R> {
             reader,
             sample_rate,
             state: [0.0; NELLY_BUF_LEN],
-            planner: DctPlanner::new(),
             cur_frame: [0f32; NELLY_SAMPLES], // TODO: make uninitialized?
             cur_sample: 0,
         }
@@ -223,7 +225,7 @@ impl<R: Read> Decoder<R> {
                 *x = 0.0;
             }
 
-            let mdct = self.planner.plan_mdct(NELLY_BUF_LEN, window);
+            let mdct = DCT_PLANNER.lock().unwrap().plan_mdct(NELLY_BUF_LEN, window);
             let mut scratch = vec![0f32; mdct.get_scratch_len()];
             mdct.process_imdct_with_scratch(&input, slice, &mut self.state, &mut scratch);
         }
