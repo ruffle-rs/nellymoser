@@ -1,9 +1,9 @@
 [package]
 name = "nellymoser-rs"
-version = "0.1.1"
+version = "0.1.2"
 authors = ["relrelb <relrelbachar@gmail.com>"]
-edition = "2018"
-description = "Nellymoser decoding library written in Rust"
+edition = "2021"
+description = "A pure Rust decoder for the Nellymoser audio codec"
 license = "MIT"
 
 [dependencies]
