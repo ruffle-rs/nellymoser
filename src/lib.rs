@@ -175,13 +175,7 @@ impl<R: Read> Decoder<R> {
             for i in 0..NELLY_FILL_LEN {
                 let mut tmp = sbuf[i] as i32 - small_off;
                 tmp = ((tmp >> (shift_saved - 1)) + 1) >> 1;
-                bits[i] = if tmp < 0 {
-                    0
-                } else if tmp > NELLY_BIT_CAP as i32 {
-                    NELLY_BIT_CAP as i32
-                } else {
-                    tmp
-                };
+                bits[i] = tmp.clamp(0, NELLY_BIT_CAP as i32);
             }
 
             if bitsum > NELLY_DETAIL_BITS {
