@@ -247,13 +247,7 @@ fn sum_bits(buf: [i16; NELLY_BUF_LEN], shift: i16, off: i16) -> i32 {
     buf[0..NELLY_FILL_LEN].iter().fold(0i32, |ret, &i| {
         let b = i as i32 - off as i32;
         let b = ((b >> (shift - 1)) + 1) >> 1;
-        ret + if b < 0 {
-            0
-        } else if b > NELLY_BIT_CAP as i32 {
-            NELLY_BIT_CAP as i32
-        } else {
-            b
-        }
+        ret + b.clamp(0, NELLY_BIT_CAP as i32)
     })
 }
 
