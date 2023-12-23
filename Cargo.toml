@@ -7,6 +7,6 @@ description = "A pure Rust decoder for the Nellymoser audio codec"
 license = "MIT"
 
 [dependencies]
-bitstream-io = "1.3.0"
+bitstream-io = "2"
 once_cell = "1.10.0"
 rustdct = "0.7.0"
