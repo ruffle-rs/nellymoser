@@ -70,11 +70,11 @@ impl<R: Read> Decoder<R> {
         let mut pows = [0f32; NELLY_BUF_LEN];
         {
             let mut reader = BitReader::endian(Cursor::new(&block), LittleEndian);
-            let mut val = NELLY_INIT_TABLE[reader.read::<u8>(6).unwrap() as usize] as f32;
+            let mut val = NELLY_INIT_TABLE[reader.read::<6, u8>().unwrap() as usize] as f32;
             let mut ptr: usize = 0;
             for (i, x) in NELLY_BAND_SIZES_TABLE.iter().enumerate() {
                 if i > 0 {
-                    val += NELLY_DELTA_TABLE[reader.read::<u8>(5).unwrap() as usize] as f32;
+                    val += NELLY_DELTA_TABLE[reader.read::<5, u8>().unwrap() as usize] as f32;
                 }
 
                 let pval = (val / 2048.0).exp2();
@@ -212,7 +212,7 @@ impl<R: Read> Decoder<R> {
             } else if bits[j] <= 0 {
                 std::f32::consts::FRAC_1_SQRT_2
             } else {
-                let v = reader.read::<u8>(bits[j] as u32).unwrap();
+                let v = reader.read_var::<u8>(bits[j] as u32).unwrap();
                 NELLY_DEQUANTIZATION_TABLE[((1 << bits[j]) - 1 + v) as usize] as f32
             } * pows[j]).collect();
 
